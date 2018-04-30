@@ -567,7 +567,11 @@ class Zend_Service_Technorati_TechnoratiTest extends Zend_Service_Technorati_Tes
     {
         $technorati = $this->_setResponseFromFile($xmlFile);
         foreach ($validOptions as $pair) {
-            list($option, $value) = each($pair);
+            // deprecated; list($option, $value) = each($pair);
+            // hack to work around each() deprecation in php 7.2
+            $option = key($pair);
+            $value = current($pair);
+            next($pair); // finally, advance cursor similar to each()
             $options = is_array($callbackRequiredOptions) ?
                             array_merge($callbackRequiredOptions, array($pair)) :
                             array($pair);
@@ -593,7 +597,11 @@ class Zend_Service_Technorati_TechnoratiTest extends Zend_Service_Technorati_Tes
     {
         $technorati = $this->_setResponseFromFile($xmlFile);
         foreach ($invalidOptions as $pair) {
-            list($option, $value) = each($pair);
+            // deprecated; list($option, $value) = each($pair);
+            // hack to work around each() deprecation in php 7.2
+            $option = key($pair);
+            $value = current($pair);
+            next($pair); // finally, advance cursor similar to each()
             $options = is_array($callbackRequiredOptions) ?
                             array_merge($callbackRequiredOptions, array($pair)) :
                             array($pair);
